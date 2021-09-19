@@ -10,10 +10,12 @@ function main(projectDetails) {
         console.log('[main] entered');
         const errors = [];
         sanitiseInput(projectDetails, errors);
-        console.log(" ----> " + errors);
+        console.log("ERRORS -> " + errors);
         if (errors.length)
             throw new Error(errors.join(', '));
-        nest_init_1.initialiseProject(projectDetails);
+        const conventionalizedProjectDetails = project_detail_validator_1.conventionalize(projectDetails);
+        console.log("conventionalized --> " + JSON.stringify(conventionalizedProjectDetails));
+        nest_init_1.initialiseProject(conventionalizedProjectDetails);
         console.log('[main] ended');
     }
     catch (e) {
@@ -38,16 +40,25 @@ function sanitiseInput(projectDetail, errors) {
         throw new Error(e);
     }
 }
+function conventionalizeInput(projectDetail) {
+    try {
+        return project_detail_validator_1.conventionalize(projectDetail);
+    }
+    catch (e) {
+        throw new Error(e);
+    }
+}
+/* example data to generate a nest project */
 main({
     dbName: "kugesh-database",
     tables: [{
-            tableName: 'kugesh-table1',
+            tableName: 'kugesh table1',
             tableProperties: [{
-                    propertyName: "kugesh-property-1",
+                    propertyName: "kugesh property 1",
                     propertyType: "string"
                 },
                 {
-                    propertyName: "kugesh-property-2",
+                    propertyName: "kugesh property 2",
                     propertyType: "string"
                 },
                 {

@@ -1,6 +1,6 @@
 import { ProjectDetails } from './models/project-detail.model'; 
 import { initialiseProject } from "./executor/nest-init"; 
-import { projectDetailValidator } from './validator/project-detail.validator';
+import { projectDetailValidator,conventionalize } from './validator/project-detail.validator';
 import { tableDetailValidator } from './validator/table-detail.validator';
 import { tablePropertyValidator } from './validator/table-property.validator';
 
@@ -10,10 +10,12 @@ export function main(projectDetails: ProjectDetails){
     console.log('[main] entered');
     const errors : string[] = [];
     sanitiseInput(projectDetails, errors); 
-    console.log(" ----> "+errors);
+    console.log("ERRORS -> "+errors);
     if(errors.length)
       throw new Error(errors.join(', '));
-    initialiseProject(projectDetails);
+    const conventionalizedProjectDetails: ProjectDetails = conventionalize(projectDetails);
+    console.log("conventionalized --> "+ JSON.stringify(conventionalizedProjectDetails));
+    initialiseProject(conventionalizedProjectDetails);
     console.log('[main] ended');
   } catch(e){
     console.log(e);
@@ -23,12 +25,12 @@ export function main(projectDetails: ProjectDetails){
 
 function sanitiseInput(projectDetail: ProjectDetails, errors: string[]){
   try{
+    console.log('[sanitiseInput] sanitization starts');
     projectDetailValidator(projectDetail, errors);
     if(!projectDetail['tables'].length)
       errors.push(`table details not provided`);
     projectDetail['tables'].forEach((tableDetail) => {
-      tableDetailValidator(tableDetail, errors);     
-    
+      tableDetailValidator(tableDetail, errors);       
       if(!tableDetail['tableProperties'].length)
         errors.push(`table property details not provided`)
       tableDetail['tableProperties'].forEach((tableProperty) => tablePropertyValidator(tableProperty, errors));
@@ -38,16 +40,26 @@ function sanitiseInput(projectDetail: ProjectDetails, errors: string[]){
   }
 }
 
+function conventionalizeInput(projectDetail: ProjectDetails){
+  try{
+    return conventionalize(projectDetail);
+  } catch(e){
+    throw new Error(e);
+  }
+}
+
+
+/* example data to generate a nest project */
 main({
   dbName: "kugesh-database",
   tables: [{
-    tableName: 'kugesh-table1',
+    tableName: 'kugesh table1',
     tableProperties: [{
-      propertyName: "kugesh-property-1",
+      propertyName: "kugesh property 1",
       propertyType: "string"
     }, 
 {
-      propertyName: "kugesh-property-2",
+      propertyName: "kugesh property 2",
       propertyType: "string"
     },
 {
@@ -90,3 +102,4 @@ main({
   }
   ],
 })
+

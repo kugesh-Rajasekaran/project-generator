@@ -10,7 +10,7 @@ export function getEnvironmentCode(projectDetails :ProjectDetails){
    port: 8080,
    username: 'postgres',
    password: 'root',
-   database: ${projectDetails['dbName']},
+   database: '${projectDetails['dbName']}',
    entities: [${entities}],
    autoLoadEntities: true,
    synchronize: true
