@@ -4,8 +4,8 @@ import { changeToRouteFormat } from '../../validator/project-detail.validator';
 export function getServiceCode(dbName: string, tableDetails: TableDetails) {
   const tableName = tableDetails['tableName'];
   return ` import { Injectable, Logger } from '@nestjs/common';
-import { ${tableName}Repository } from '../../entity/${dbName}.entity';
-import { Create${tableName}RequestDto, Read${tableName}RequestDto, Delete${tableName}RequestDto, Update${tableName}RequestDto } from '../dto/${changeToRouteFormat(dbName)}.dto';
+import { ${tableName}, ${tableName}Repository } from '../entity/${changeToRouteFormat(dbName)}.entity';
+import { Create${tableName}RequestDto, Read${tableName}RequestDto, Delete${tableName}RequestDto, Update${tableName}RequestDto } from '../dto/${changeToRouteFormat(tableName)}.dto';
 
 @Injectable()
 export class ${tableName}Service{
@@ -47,7 +47,7 @@ export class ${tableName}Service{
 
  async delete${tableName}(deleteObj: Delete${tableName}RequestDto){
   try{
-   return this.repository.delete({${tableDetails['primaryKeyName']}}: deleteObj.${tableDetails['primaryKeyName']});
+   return this.repository.delete({${tableDetails['primaryKeyName']}: deleteObj.${tableDetails['primaryKeyName']}});
   } catch(e){
   this.logger.error(e['message']);
    return e['message'];

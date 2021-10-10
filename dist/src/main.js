@@ -26,6 +26,7 @@ function main(projectDetails) {
 exports.main = main;
 function sanitiseInput(projectDetail, errors) {
     try {
+        console.log('[sanitiseInput] sanitization starts');
         project_detail_validator_1.projectDetailValidator(projectDetail, errors);
         if (!projectDetail['tables'].length)
             errors.push(`table details not provided`);

@@ -22,7 +22,7 @@ function generateEntityCode(tableDetails) {
     console.log("--- from entity code generation ---");
     console.log(tableDetails);
     const entityCode = tableDetails.map((tableEntity) => {
-        return `@Controller()
+        return `@Entity()
     export class ${tableEntity['tableName']}{
      @PrimaryColumn()
      ${tableEntity['primaryKeyName']}: ${tableEntity['primaryKeyType']};

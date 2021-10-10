@@ -4,13 +4,12 @@ exports.getServiceCode = void 0;
 const project_detail_validator_1 = require("../../validator/project-detail.validator");
 function getServiceCode(dbName, tableDetails) {
     const tableName = tableDetails['tableName'];
-    return ` import { injectable } from '@nestjs/common';
-import { Logger } from '@nestjs/common';
-import { ${tableName} } from '../../entity/${dbName}.entity.ts';
-import { Create${tableName}RequestDto, Read${tableName}RequestDto, Delete${tableName}RequestDto, Update${tableName}RequestDto } from '../dto/${project_detail_validator_1.changeToRouteFormat(dbName)}.dto';
+    return ` import { Injectable, Logger } from '@nestjs/common';
+import { ${tableName}, ${tableName}Repository } from '../entity/${project_detail_validator_1.changeToRouteFormat(dbName)}.entity';
+import { Create${tableName}RequestDto, Read${tableName}RequestDto, Delete${tableName}RequestDto, Update${tableName}RequestDto } from '../dto/${project_detail_validator_1.changeToRouteFormat(tableName)}.dto';
 
 @Injectable()
-class ${tableName}Service{
+export class ${tableName}Service{
  private logger: Logger;
 
  constructor(private repository: ${tableName}Repository){
@@ -31,7 +30,7 @@ class ${tableName}Service{
 
  async read${tableName}(readObj: Read${tableName}RequestDto){
  try{
-   return dbObj.findOne({${tableDetails['primaryKeyName']}: readObj.${tableDetails['primaryKeyName']} });
+   return this.repository.findOne({${tableDetails['primaryKeyName']}: readObj.${tableDetails['primaryKeyName']} });
   } catch(e){
    this.logger.error(e['message']);
    return e['message'];
@@ -49,7 +48,7 @@ class ${tableName}Service{
 
  async delete${tableName}(deleteObj: Delete${tableName}RequestDto){
   try{
-   return this.repository.delete({${tableDetails['primaryKeyName']}: deleteObj.${tableDetails['primaryKeyName']});
+   return this.repository.delete({${tableDetails['primaryKeyName']}: deleteObj.${tableDetails['primaryKeyName']}});
   } catch(e){
   this.logger.error(e['message']);
    return e['message'];

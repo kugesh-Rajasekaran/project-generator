@@ -13,9 +13,9 @@ function getDtoCode(tableDetail) {
    ${tableDetail['primaryKeyName']}: ${tableDetail['primaryKeyType']};
   }
 
-  export class Update${tableDetail['tableName']}RequestDto extends Create${tableDetail['tableName']}Dto{}
+  export class Update${tableDetail['tableName']}RequestDto extends Create${tableDetail['tableName']}RequestDto{}
 
-  export class Delete${tableDetail['tableName']}RequestDto extends Update${tableDetail['tableName']}Dto{}
+  export class Delete${tableDetail['tableName']}RequestDto extends Update${tableDetail['tableName']}RequestDto{}
 
   export class Create${tableDetail['tableName']}ResponseDto{
    ${tableDetail['primaryKeyName']}: ${tableDetail['primaryKeyType']};
@@ -24,9 +24,9 @@ function getDtoCode(tableDetail) {
 
   export class Read${tableDetail['tableName']}ResponseDto extends Create${tableDetail['tableName']}RequestDto{}
 
-  export class Update${tableDetail['tableName']}ResponseDto extends Create${tableDetail['tableName']}Dto{}
+  export class Update${tableDetail['tableName']}ResponseDto extends Create${tableDetail['tableName']}RequestDto{}
 
-  export class Delete${tableDetail['tableName']}ResponseDto extends Update${tableDetail['tableName']}Dto{}
+  export class Delete${tableDetail['tableName']}ResponseDto extends Update${tableDetail['tableName']}RequestDto{}
 `;
 }
 exports.getDtoCode = getDtoCode;

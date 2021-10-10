@@ -1,9 +1,10 @@
 import { ProjectDetails } from '../project-detail.model';
+import { changeToRouteFormat } from '../../validator/project-detail.validator';
 
 export function getEnvironmentCode(projectDetails :ProjectDetails){
  const entities = generateTableNames(projectDetails);
  return `import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-   import { ${entities} } from '../../entity/${projectDetails['dbName']}.entity';
+   import { ${entities} } from '../entity/${changeToRouteFormat(projectDetails['dbName'])}.entity';
   const postgresLocalConfig: TypeOrmModuleOptions={
    type: 'postgres',
    host: '127.0.0.1',

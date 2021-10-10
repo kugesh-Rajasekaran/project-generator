@@ -8,7 +8,7 @@ const postgresLocalConfig = {
     port: 8080,
     username: 'postgres',
     password: 'root',
-    database: KugeshDatabase,
+    database: 'KugeshDatabase',
     entities: [KugeshDatabase_entity_1.KugeshTable1, KugeshDatabase_entity_1.KugeshTable2],
     autoLoadEntities: true,
     synchronize: true

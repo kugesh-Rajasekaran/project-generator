@@ -15,8 +15,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.KugeshTable2Service = void 0;
 const common_1 = require("@nestjs/common");
-const KugeshDatabase_entity_ts_1 = require("../../entity/KugeshDatabase.entity.ts");
 let KugeshTable2Service = class KugeshTable2Service {
     constructor(repository) {
         this.repository = repository;
@@ -26,11 +26,11 @@ let KugeshTable2Service = class KugeshTable2Service {
         return __awaiter(this, void 0, void 0, function* () {
             this.logger.log("from createKugeshTable2 method");
             try {
-                const dbObj = new KugeshDatabase_entity_ts_1.KugeshTable2;
-                const dbObj, kugeshProperty1 = createObj.kugeshProperty1;
-                const dbObj, kugeshProperty2 = createObj.kugeshProperty2;
-                const dbObj, kugeshProperty3 = createObj.kugeshProperty3;
-                const dbObj, kugeshProperty4 = createObj.kugeshProperty4;
+                const dbObj = new KugeshTable2();
+                dbObj.kugeshProperty1 = createObj.kugeshProperty1;
+                dbObj.kugeshProperty2 = createObj.kugeshProperty2;
+                dbObj.kugeshProperty3 = createObj.kugeshProperty3;
+                dbObj.kugeshProperty4 = createObj.kugeshProperty4;
                 return dbObj.save();
             }
             catch (e) {
@@ -39,10 +39,10 @@ let KugeshTable2Service = class KugeshTable2Service {
             }
         });
     }
-    readKugeshTable2(id) {
+    readKugeshTable2(readObj) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return dbObj.findOne({ id: id });
+                return this.repository.findOne({ id: readObj.id });
             }
             catch (e) {
                 this.logger.error(e['message']);
@@ -61,10 +61,10 @@ let KugeshTable2Service = class KugeshTable2Service {
             }
         });
     }
-    deleteKugeshTable2(id) {
+    deleteKugeshTable2(deleteObj) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return this.repository.delete({ id: id });
+                return this.repository.delete({ id }, deleteObj.id);
             }
             catch (e) {
                 this.logger.error(e['message']);
@@ -74,6 +74,7 @@ let KugeshTable2Service = class KugeshTable2Service {
     }
 };
 KugeshTable2Service = __decorate([
-    Injectable()
+    common_1.Injectable()
 ], KugeshTable2Service);
+exports.KugeshTable2Service = KugeshTable2Service;
 //# sourceMappingURL=kugesh-table2.service.js.map
