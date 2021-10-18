@@ -28,7 +28,7 @@ let KugeshTable1Controller = class KugeshTable1Controller {
     createKugeshTable1(createData) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return service.createKugeshTable1(createData);
+                return this.service.createKugeshTable1(createData);
             }
             catch (e) {
                 this.logger.error(e['message']);
@@ -39,7 +39,7 @@ let KugeshTable1Controller = class KugeshTable1Controller {
     readKugeshTable1(readData) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return service.createKugeshTable1(readData.id);
+                return this.service.readKugeshTable1(readData);
             }
             catch (e) {
                 this.logger.error(e['message']);
@@ -47,10 +47,10 @@ let KugeshTable1Controller = class KugeshTable1Controller {
             }
         });
     }
-    deleteKugeshTable1(deletData) {
+    deleteKugeshTable1(deleteData) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return service.deleteKugeshTable1(deleteData.id);
+                return this.service.deleteKugeshTable1(deleteData);
             }
             catch (e) {
                 this.logger.error(e['message']);
@@ -61,7 +61,7 @@ let KugeshTable1Controller = class KugeshTable1Controller {
     updateKugeshTable1(updateData) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return service.createKugeshTable1(updateData);
+                return this.service.createKugeshTable1(updateData);
             }
             catch (e) {
                 this.logger.error(e['message']);
@@ -71,20 +71,20 @@ let KugeshTable1Controller = class KugeshTable1Controller {
     }
 };
 __decorate([
-    Post('createKugeshTable1'),
-    __param(0, Body())
+    common_1.Post('createKugeshTable1'),
+    __param(0, common_1.Body())
 ], KugeshTable1Controller.prototype, "createKugeshTable1", null);
 __decorate([
-    Post('readKugeshTable1'),
-    __param(0, Body())
+    common_1.Post('readKugeshTable1'),
+    __param(0, common_1.Body())
 ], KugeshTable1Controller.prototype, "readKugeshTable1", null);
 __decorate([
-    Post('deleteKugeshTable1'),
-    __param(0, Body())
+    common_1.Post('deleteKugeshTable1'),
+    __param(0, common_1.Body())
 ], KugeshTable1Controller.prototype, "deleteKugeshTable1", null);
 __decorate([
-    Post('updateKugeshTable1'),
-    __param(0, Body())
+    common_1.Post('updateKugeshTable1'),
+    __param(0, common_1.Body())
 ], KugeshTable1Controller.prototype, "updateKugeshTable1", null);
 KugeshTable1Controller = __decorate([
     common_1.Controller('KugeshTable1')

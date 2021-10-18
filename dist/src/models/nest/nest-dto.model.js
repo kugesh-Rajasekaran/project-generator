@@ -15,7 +15,7 @@ function getDtoCode(tableDetail) {
 
   export class Update${tableDetail['tableName']}RequestDto extends Create${tableDetail['tableName']}RequestDto{}
 
-  export class Delete${tableDetail['tableName']}RequestDto extends Update${tableDetail['tableName']}RequestDto{}
+  export class Delete${tableDetail['tableName']}RequestDto extends Read${tableDetail['tableName']}RequestDto{}
 
   export class Create${tableDetail['tableName']}ResponseDto{
    ${tableDetail['primaryKeyName']}: ${tableDetail['primaryKeyType']};

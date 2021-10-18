@@ -6,7 +6,7 @@ const tableName = tableDetails['tableName'];
 
 return ` import { Logger, Controller, Get, Post, Body } from '@nestjs/common';
 import { ${tableName}Service } from './${changeToRouteFormat(tableName)}.service';
-import { ${tableName} } from '../../entity/${changeToRouteFormat(dbName)}.entity.ts';
+import { ${tableName} } from '../entity/${changeToRouteFormat(dbName)}.entity';
 
 @Controller('${tableDetails['tableName']}')
 export class ${tableDetails['tableName']}Controller{

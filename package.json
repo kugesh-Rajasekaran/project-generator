@@ -14,7 +14,7 @@
     "typescript": "^3.9.10"
   },
   "dependencies": {
-    "@nestjs/cli": "^8.1.2",
+    "@nestjs/cli": "^8.1.4",
     "@types/node": "^16.7.10",
     "auto-project-generator": "^1.0.0"
   }

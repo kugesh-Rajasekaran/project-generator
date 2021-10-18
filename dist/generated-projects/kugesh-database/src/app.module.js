@@ -12,11 +12,13 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const kugesh_table1_module_1 = require("./kugesh-table1/kugesh-table1.module");
 const kugesh_table2_module_1 = require("./kugesh-table2/kugesh-table2.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const environment_1 = require("../environments/environment");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
-        imports: [kugesh_table1_module_1.KugeshTable1Module, kugesh_table2_module_1.KugeshTable2Module],
+        imports: [typeorm_1.TypeOrmModule.forRoot(environment_1.environment.databaseConfig), kugesh_table1_module_1.KugeshTable1Module, kugesh_table2_module_1.KugeshTable2Module],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

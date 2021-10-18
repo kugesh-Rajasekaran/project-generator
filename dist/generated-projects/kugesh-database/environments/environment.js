@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = void 0;
-const KugeshDatabase_entity_1 = require("../../entity/KugeshDatabase.entity");
+const kugesh_database_entity_1 = require("../src/entity/kugesh-database.entity");
 const postgresLocalConfig = {
     type: 'postgres',
     host: '127.0.0.1',
-    port: 8080,
+    port: 5432,
     username: 'postgres',
     password: 'root',
-    database: 'KugeshDatabase',
-    entities: [KugeshDatabase_entity_1.KugeshTable1, KugeshDatabase_entity_1.KugeshTable2],
+    database: 'surfpay-checkout',
+    entities: [kugesh_database_entity_1.KugeshTable1, kugesh_database_entity_1.KugeshTable2],
     autoLoadEntities: true,
     synchronize: true
 };

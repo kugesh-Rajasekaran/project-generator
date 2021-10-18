@@ -6,4 +6,5 @@ do
   npx nest generate co ${args[ind]}
   npx nest generate s ${args[ind]}
 done
-npm i typeorm
+npm i --save @nestjs/typeorm typeorm
+npm install pg --save

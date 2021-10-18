@@ -5,11 +5,11 @@ const project_detail_validator_1 = require("../../validator/project-detail.valid
 function getEnvironmentCode(projectDetails) {
     const entities = generateTableNames(projectDetails);
     return `import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-   import { ${entities} } from '../entity/${project_detail_validator_1.changeToRouteFormat(projectDetails['dbName'])}.entity';
+   import { ${entities} } from '../src/entity/${project_detail_validator_1.changeToRouteFormat(projectDetails['dbName'])}.entity';
   const postgresLocalConfig: TypeOrmModuleOptions={
    type: 'postgres',
    host: '127.0.0.1',
-   port: 8080,
+   port: 5432,
    username: 'postgres',
    password: 'root',
    database: '${projectDetails['dbName']}',

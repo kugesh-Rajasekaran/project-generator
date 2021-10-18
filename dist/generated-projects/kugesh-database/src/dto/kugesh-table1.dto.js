@@ -10,7 +10,7 @@ exports.ReadKugeshTable1RequestDto = ReadKugeshTable1RequestDto;
 class UpdateKugeshTable1RequestDto extends CreateKugeshTable1RequestDto {
 }
 exports.UpdateKugeshTable1RequestDto = UpdateKugeshTable1RequestDto;
-class DeleteKugeshTable1RequestDto extends UpdateKugeshTable1RequestDto {
+class DeleteKugeshTable1RequestDto extends ReadKugeshTable1RequestDto {
 }
 exports.DeleteKugeshTable1RequestDto = DeleteKugeshTable1RequestDto;
 class CreateKugeshTable1ResponseDto {

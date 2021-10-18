@@ -6,7 +6,7 @@ function getControllerCode(dbName, tableDetails) {
     const tableName = tableDetails['tableName'];
     return ` import { Logger, Controller, Get, Post, Body } from '@nestjs/common';
 import { ${tableName}Service } from './${project_detail_validator_1.changeToRouteFormat(tableName)}.service';
-import { ${tableName} } from '../../entity/${project_detail_validator_1.changeToRouteFormat(dbName)}.entity.ts';
+import { ${tableName} } from '../entity/${project_detail_validator_1.changeToRouteFormat(dbName)}.entity';
 
 @Controller('${tableDetails['tableName']}')
 export class ${tableDetails['tableName']}Controller{

@@ -23,8 +23,8 @@ function generateEntityCode(tableDetails) {
     console.log(tableDetails);
     const entityCode = tableDetails.map((tableEntity) => {
         return `@Entity()
-    export class ${tableEntity['tableName']}{
-     @PrimaryColumn()
+    export class ${tableEntity['tableName']} extends BaseEntity{
+     @PrimaryGeneratedColumn("uuid")
      ${tableEntity['primaryKeyName']}: ${tableEntity['primaryKeyType']};
      ${propertyGenerator(tableEntity['tableProperties'])}
     }
