@@ -1,3 +1,6 @@
+/**
+ *  Validates the given string
+ * */
 export function validateString(stringToValidate: string, inputName: string, categoryName: string, errors: string[]): string[]{
   if(typeof stringToValidate != 'string')
     errors.push(`type mismatch - ${inputName} in ${categoryName}`);

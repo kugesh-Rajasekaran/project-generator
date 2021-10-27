@@ -19,23 +19,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.main = void 0;
+exports.generateProject = void 0;
 const nest_init_1 = require("./executor/nest-init");
 const project_detail_validator_1 = require("./validator/project-detail.validator");
 const table_detail_validator_1 = require("./validator/table-detail.validator");
 const table_property_validator_1 = require("./validator/table-property.validator");
 const fs = __importStar(require("fs"));
-function main(projectDetails) {
+function generateProject(projectDetails) {
     try {
         console.log('[main] entered');
         const errors = [];
         sanitiseInput(projectDetails, errors);
         console.log("ERRORS -> " + errors);
+        const initProject = chooseProjectType(projectDetails['projectType'], errors);
         if (errors.length)
             throw new Error(errors.join(', '));
         const conventionalizedProjectDetails = project_detail_validator_1.conventionalize(projectDetails);
-        console.log("conventionalized --> " + JSON.stringify(conventionalizedProjectDetails));
-        nest_init_1.initialiseProject(conventionalizedProjectDetails);
+        console.log("conventionalized -> " + JSON.stringify(conventionalizedProjectDetails));
+        initProject(conventionalizedProjectDetails);
         console.log('[main] ended');
     }
     catch (e) {
@@ -43,18 +44,18 @@ function main(projectDetails) {
         throw new Error(e['message']);
     }
 }
-exports.main = main;
+exports.generateProject = generateProject;
 function sanitiseInput(projectDetail, errors) {
     try {
         console.log('[sanitiseInput] sanitization starts');
-        checkProjectNameAlreadyPresent(projectDetail['dbName']);
+        checkProjectNameAlreadyPresent(projectDetail['dbName'], errors);
         project_detail_validator_1.projectDetailValidator(projectDetail, errors);
         if (!projectDetail['tables'].length)
-            errors.push(`table details not provided`);
+            errors.push(`table details not provided - please provide atleast one`);
         projectDetail['tables'].forEach((tableDetail) => {
             table_detail_validator_1.tableDetailValidator(tableDetail, errors);
             if (!tableDetail['tableProperties'].length)
-                errors.push(`table property details not provided`);
+                errors.push(`table property details not provided - please provide atleast one for each table`);
             tableDetail['tableProperties'].forEach((tableProperty) => table_property_validator_1.tablePropertyValidator(tableProperty, errors));
         });
     }
@@ -62,12 +63,11 @@ function sanitiseInput(projectDetail, errors) {
         throw new Error(e['message']);
     }
 }
-function checkProjectNameAlreadyPresent(dbName) {
+function checkProjectNameAlreadyPresent(dbName, errors) {
     if (!dbName)
-        throw new Error('database name is empty - please provide valid database name');
-    console.debug("exist or not --> " + fs.existsSync(`./generated-projects/${project_detail_validator_1.changeToRouteFormat(dbName)}`));
+        errors.push('database name is empty - please provide valid database name');
     if (fs.existsSync(`./generated-projects/${project_detail_validator_1.changeToRouteFormat(dbName)}`))
-        throw new Error('given project/database name already present - please provide another name');
+        errors.push('given project/database name already present - please provide another name or delete the existing one');
 }
 function conventionalizeInput(projectDetail) {
     try {
@@ -77,11 +77,22 @@ function conventionalizeInput(projectDetail) {
         throw new Error(e);
     }
 }
+function chooseProjectType(projectType, errors) {
+    if (!projectType)
+        errors.push('project type needed - please choose a valid one');
+    switch (projectType) {
+        case 'nest':
+            return nest_init_1.initialiseNestProject;
+        default:
+            errors.push('invalid project type - please select valid project type');
+    }
+}
 /* example data to generate a nest project */
-main({
+generateProject({
+    projectType: 'nest',
     dbName: "kugesh-database",
     tables: [{
-            tableName: 'kugesh table1',
+            tableName: '       kugesh         table 1  ',
             tableProperties: [{
                     propertyName: "kugesh property 1",
                     propertyType: "string"

@@ -3,12 +3,12 @@ import { changeToRouteFormat } from '../../validator/project-detail.validator';
 
 export function getControllerCode(dbName: string, tableDetails: TableDetails){
 const tableName = tableDetails['tableName'];
-
+const tableRoute = changeToRouteFormat(tableName);
 return ` import { Logger, Controller, Get, Post, Body } from '@nestjs/common';
-import { ${tableName}Service } from './${changeToRouteFormat(tableName)}.service';
+import { ${tableName}Service } from './${tableRoute}.service';
 import { ${tableName} } from '../entity/${changeToRouteFormat(dbName)}.entity';
 
-@Controller('${tableDetails['tableName']}')
+@Controller('${tableRoute}')
 export class ${tableDetails['tableName']}Controller{
    private logger: Logger;
 
@@ -16,7 +16,7 @@ export class ${tableDetails['tableName']}Controller{
      this.logger = new Logger('${tableName.toUpperCase()}_CONTROLLER');
    }
 
- @Post('create${tableName}')
+ @Post('create-${tableRoute}')
  async create${tableName}(@Body() createData: ${tableName}){
 try{
    return this.service.create${tableName}(createData);
@@ -27,7 +27,7 @@ try{
  }
 
 
- @Post('read${tableName}')
+ @Post('read-${tableRoute}')
  async read${tableName}(@Body() readData: {id: string}){
 try{
    return this.service.read${tableName}(readData);
@@ -37,7 +37,7 @@ try{
   }
  }
 
-@Post('delete${tableName}')
+@Post('delete-${tableRoute}')
  async delete${tableName}(@Body() deleteData: {id: string}){
 try{
    return this.service.delete${tableName}(deleteData);
@@ -47,7 +47,7 @@ try{
   }
  }
 
-@Post('update${tableName}')
+@Post('update-${tableRoute}')
  async update${tableName}(@Body() updateData: ${tableName}){
 try{
    return this.service.create${tableName}(updateData);

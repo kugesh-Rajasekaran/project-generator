@@ -8,15 +8,15 @@ import { changeToRouteFormat } from '../validator/project-detail.validator';
 const { execSync } = require("child_process");
 const fs = require("fs");
 
-export function initialiseProject(projectDetail){
+export function initialiseNestProject(projectDetail){
   try{
     const projectName = projectDetail['dbName'];
     const moduleNames = projectDetail['tables'].map((tableDetail) => tableDetail['tableName']);
     const routeFolder = `${process.cwd()}/generated-projects`;
     console.log("[initialise-project] nest initiation started");
-    const initResponse = execSync(`sh ../src/shell-files/nest-init.sh ${projectName} ${moduleNames}`, { input: 'npm', encoding: 'utf-8', cwd: routeFolder });
+    const initResponse = execSync(`sh ../src/shell-files/nest/nest-init.sh ${projectName} ${moduleNames}`, { input: 'npm', encoding: 'utf-8', cwd: routeFolder });
     console.log("[initialise-project] nest modules generate started");
-    const modulesResponse = execSync(`sh ../../src/shell-files/nest-modules-generate.sh ${projectName} ${moduleNames.join(' ')}`, {input: 'npm', encoding: 'utf-8', cwd: `${routeFolder}/${changeToRouteFormat(projectName)}`});
+    const modulesResponse = execSync(`sh ../../src/shell-files/nest/nest-modules-generate.sh ${projectName} ${moduleNames.join(' ')}`, {input: 'npm', encoding: 'utf-8', cwd: `${routeFolder}/${changeToRouteFormat(projectName)}`});
     generateCode(projectDetail);
   } catch(e){
     throw new Error(e);
@@ -57,8 +57,6 @@ export function generateCode(projectDetail){
     throw new Error(e);
   }
 }
-
-
 
 function fileCreation(routeArr: string[]){
   console.log("from fileCreation method");

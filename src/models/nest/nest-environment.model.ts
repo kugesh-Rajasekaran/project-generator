@@ -26,6 +26,7 @@ export function getEnvironmentCode(projectDetails :ProjectDetails){
 
 function generateTableNames(projectDetails: ProjectDetails){
  return projectDetails['tables'].map((entity) => {
-  return entity['tableName']
+   console.log(`tableNames  --> ${entity} `);
+   return entity['tableName']
  })
 }

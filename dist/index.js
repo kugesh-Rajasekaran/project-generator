@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var main_1 = require("./src/main");
-Object.defineProperty(exports, "main", { enumerable: true, get: function () { return main_1.main; } });
+Object.defineProperty(exports, "generateProject", { enumerable: true, get: function () { return main_1.generateProject; } });
 /*main({
   dbName: "kugesh-raj-db",
   dbType: "string",

@@ -1,4 +1,5 @@
 export interface ProjectDetails{
+  projectType: 'nest';
   dbName: string;
   tables: TableDetails[];
 }

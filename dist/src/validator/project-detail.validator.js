@@ -14,6 +14,7 @@ exports.projectDetailValidator = projectDetailValidator;
 function conventionalize(projectDetail) {
     console.log("conventionalize " + JSON.stringify(projectDetail));
     return {
+        projectType: projectDetail['projectType'],
         dbName: conventionalizeInput(projectDetail['dbName'], 'class'),
         tables: projectDetail['tables'].map((tableDetail) => {
             return {
@@ -34,18 +35,22 @@ function conventionalize(projectDetail) {
 exports.conventionalize = conventionalize;
 function conventionalizeInput(propertyValue, propertyType) {
     const propertyValueLowerCased = propertyValue.toLowerCase();
-    const strLength = propertyValue.length;
     let conventionalizedString = '';
     let itr = 0;
+    console.log("property value --> " + propertyValue);
+    const sanitizedVal = propertyValue.trim().replace(/\s\s+/g, ' ');
+    console.log("After sanitized ---> " + sanitizedVal);
     if (propertyType == 'class')
-        conventionalizedString += propertyValue[itr++].toUpperCase();
+        conventionalizedString += sanitizedVal[itr++].toUpperCase();
+    const strLength = sanitizedVal.length;
     while (itr < strLength) {
-        if (propertyValue[itr] == ' ' || propertyValue[itr] == '-')
-            conventionalizedString += propertyValue[++itr].toUpperCase();
+        if (sanitizedVal[itr] == ' ' || sanitizedVal[itr] == '-')
+            conventionalizedString += sanitizedVal[++itr].toUpperCase();
         else
-            conventionalizedString += propertyValue[itr];
+            conventionalizedString += sanitizedVal[itr];
         itr++;
     }
+    console.log("output property value --> " + conventionalizedString);
     return conventionalizedString;
 }
 function changeToRouteFormat(value) {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateCode = exports.initialiseProject = void 0;
+exports.generateCode = exports.initialiseNestProject = void 0;
 const nest_controller_model_1 = require("../models/nest/nest-controller.model");
 const nest_service_model_1 = require("../models/nest/nest-service.model");
 const nest_entity_model_1 = require("../models/nest/nest-entity.model");
@@ -10,22 +10,22 @@ const nest_module_model_1 = require("../models/nest/nest-module.model");
 const project_detail_validator_1 = require("../validator/project-detail.validator");
 const { execSync } = require("child_process");
 const fs = require("fs");
-function initialiseProject(projectDetail) {
+function initialiseNestProject(projectDetail) {
     try {
         const projectName = projectDetail['dbName'];
         const moduleNames = projectDetail['tables'].map((tableDetail) => tableDetail['tableName']);
         const routeFolder = `${process.cwd()}/generated-projects`;
         console.log("[initialise-project] nest initiation started");
-        const initResponse = execSync(`sh ../src/shell-files/nest-init.sh ${projectName} ${moduleNames}`, { input: 'npm', encoding: 'utf-8', cwd: routeFolder });
+        const initResponse = execSync(`sh ../src/shell-files/nest/nest-init.sh ${projectName} ${moduleNames}`, { input: 'npm', encoding: 'utf-8', cwd: routeFolder });
         console.log("[initialise-project] nest modules generate started");
-        const modulesResponse = execSync(`sh ../../src/shell-files/nest-modules-generate.sh ${projectName} ${moduleNames.join(' ')}`, { input: 'npm', encoding: 'utf-8', cwd: `${routeFolder}/${project_detail_validator_1.changeToRouteFormat(projectName)}` });
+        const modulesResponse = execSync(`sh ../../src/shell-files/nest/nest-modules-generate.sh ${projectName} ${moduleNames.join(' ')}`, { input: 'npm', encoding: 'utf-8', cwd: `${routeFolder}/${project_detail_validator_1.changeToRouteFormat(projectName)}` });
         generateCode(projectDetail);
     }
     catch (e) {
         throw new Error(e);
     }
 }
-exports.initialiseProject = initialiseProject;
+exports.initialiseNestProject = initialiseNestProject;
 function generateCode(projectDetail) {
     try {
         const dir = `${process.cwd()}/generated-projects/${project_detail_validator_1.changeToRouteFormat(projectDetail['dbName'])}`;

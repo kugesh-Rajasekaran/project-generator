@@ -1,5 +1,9 @@
 import { dataType } from '../models/nest/data-type.model';
 
+/**
+ *  Validates the given input
+ *  If error occurs, it will pushes the error into the given array based on the given information
+ * */
 export function validateInput(inputToValidate: string, expectedType: string, inputName: string, categoryName: string, errors: string[]) {
   if(typeof inputToValidate != expectedType)
     errors.push(`type mismatch, expected ${expectedType} but found ${typeof inputToValidate} - ${inputName} in ${categoryName}`);
@@ -10,8 +14,10 @@ export function validateInput(inputToValidate: string, expectedType: string, inp
   return ;
 }
 
+/**
+ *    
+ * */
 export function validateTypeInput(inputString: string, inputName: string, categoryName: string, errors: string[]){
-
   if(!dataType.includes(inputString))
     errors.push(`${inputString} is invalid in ${inputName} under ${categoryName}`);
   return ;

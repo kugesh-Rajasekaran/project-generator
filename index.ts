@@ -1,4 +1,4 @@
-export { main } from './src/main';
+export { generateProject } from './src/main';
 /*main({
   dbName: "kugesh-raj-db",
   dbType: "string",
