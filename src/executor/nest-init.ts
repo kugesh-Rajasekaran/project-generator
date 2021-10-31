@@ -8,14 +8,20 @@ import { changeToRouteFormat } from '../validator/project-detail.validator';
 const { execSync } = require("child_process");
 const fs = require("fs");
 
+/**
+ *  This method will be the core for nest project generation.
+ *  It will take care all the neccessary file creation and code generation.
+ * */
 export function initialiseNestProject(projectDetail){
   try{
     const projectName = projectDetail['dbName'];
     const moduleNames = projectDetail['tables'].map((tableDetail) => tableDetail['tableName']);
     const routeFolder = `${process.cwd()}/generated-projects`;
     console.log("[initialise-project] nest initiation started");
+    /* Executes nest-init shell file which installs neccessary dependency and nest starter project */
     const initResponse = execSync(`sh ../src/shell-files/nest/nest-init.sh ${projectName} ${moduleNames}`, { input: 'npm', encoding: 'utf-8', cwd: routeFolder });
     console.log("[initialise-project] nest modules generate started");
+    /* Generates necessary modules, controllers and service files */
     const modulesResponse = execSync(`sh ../../src/shell-files/nest/nest-modules-generate.sh ${projectName} ${moduleNames.join(' ')}`, {input: 'npm', encoding: 'utf-8', cwd: `${routeFolder}/${changeToRouteFormat(projectName)}`});
     generateCode(projectDetail);
   } catch(e){
@@ -23,6 +29,9 @@ export function initialiseNestProject(projectDetail){
   }
 }
 
+/**
+ *  This method will act as controller for generating controllers, service, entity, environment code
+ * */
 export function generateCode(projectDetail){
   try{
     const dir = `${process.cwd()}/generated-projects/${changeToRouteFormat(projectDetail['dbName'])}`;
@@ -58,6 +67,9 @@ export function generateCode(projectDetail){
   }
 }
 
+/**
+ *  Acts as controller for creating files
+ * */
 function fileCreation(routeArr: string[]){
   console.log("from fileCreation method");
   try{
@@ -67,6 +79,9 @@ function fileCreation(routeArr: string[]){
   }
 }
 
+/**
+ *  Generates code and place it in the necessary files
+ * */
 function generateCodeForFiles(dir, args, fnToGenerateCode){
   console.log("[generateCodeFiles] with data -> "+ JSON.stringify(args));
   try{
@@ -84,6 +99,9 @@ function generateCodeForFiles(dir, args, fnToGenerateCode){
   } 
 }
 
+/**
+ *  Generates module file code and place's it
+ * */
 function generateCodeForModule(route: string){
  console.log('[generateCodeForModule] with routeName -> '+ route);
  try{
@@ -99,6 +117,9 @@ function generateCodeForModule(route: string){
  }
 }
 
+/**
+ *  Creates directory based on the given route
+ * */
 function makeDirectory(dir: string){
   try{
     fs.mkdirSync(dir);

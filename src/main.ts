@@ -96,9 +96,9 @@ generateProject({
   projectType: 'nest',
   dbName: "kugesh-database",
   tables: [{
-    tableName: '       kugesh         table 1  ',
+    tableName: 'kugesh-table-1',
     tableProperties: [{
-      propertyName: "kugesh property 1",
+      propertyName: "kugesh-property-1",
       propertyType: "string"
     }, 
       {
@@ -141,7 +141,7 @@ generateProject({
       ],
       primaryKeyName: 'id',
       primaryKeyType: 'string',
-      servicesRequired: {create: true, read: true, update: true, delete: true}
+      servicesRequired: {create: false, read: false, update: true, delete: true}
     }
   ],
 })

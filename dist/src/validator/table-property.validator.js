@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tablePropertyValidator = void 0;
 const validate_string_validator_1 = require("./validate-string.validator");
+/**
+ *  Validates the given table properties
+ *  validates -> property name, property type (for all the table property data)
+ * */
 function tablePropertyValidator(tableProperty, errors) {
     try {
         console.log(JSON.stringify(tableProperty));

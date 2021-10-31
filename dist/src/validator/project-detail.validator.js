@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.changeToRouteFormat = exports.conventionalize = exports.projectDetailValidator = void 0;
 const validate_string_validator_1 = require("./validate-string.validator");
+/**
+ *  This is the validator function which validates database name related information
+ *  validates -> database name
+ * */
 function projectDetailValidator(projectDetail, errors) {
     try {
         validate_string_validator_1.validateInput(projectDetail['dbName'], 'string', 'dbName', 'projectDetail', errors);
@@ -11,6 +15,11 @@ function projectDetailValidator(projectDetail, errors) {
     }
 }
 exports.projectDetailValidator = projectDetailValidator;
+/**
+ *  Conventionalize's the input which is suitable for generating code (iterates the input and calls conventionalizeInput)
+ *  For example,
+ *              Database name - profile table -> ProfileTable
+ * */
 function conventionalize(projectDetail) {
     console.log("conventionalize " + JSON.stringify(projectDetail));
     return {
@@ -33,6 +42,9 @@ function conventionalize(projectDetail) {
     };
 }
 exports.conventionalize = conventionalize;
+/**
+ *  Conventionalize's the given input which is suitable for generating code
+ * */
 function conventionalizeInput(propertyValue, propertyType) {
     const propertyValueLowerCased = propertyValue.toLowerCase();
     let conventionalizedString = '';
@@ -53,6 +65,11 @@ function conventionalizeInput(propertyValue, propertyType) {
     console.log("output property value --> " + conventionalizedString);
     return conventionalizedString;
 }
+/**
+ *  Transforms the give input to route format.
+ *  Used when we want to create file with the conventionalized name (we can't create a file with conventionalized name).
+ *  So, we can simply call this function and get route formatted name
+ * */
 function changeToRouteFormat(value) {
     const strLength = value.length;
     let itr = 1;

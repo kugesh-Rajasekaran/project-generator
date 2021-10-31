@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateString = void 0;
+/**
+ *  Validates the given string
+ * */
 function validateString(stringToValidate, inputName, categoryName, errors) {
     if (typeof stringToValidate != 'string')
         errors.push(`type mismatch - ${inputName} in ${categoryName}`);

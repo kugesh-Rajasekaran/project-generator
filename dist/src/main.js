@@ -25,6 +25,12 @@ const project_detail_validator_1 = require("./validator/project-detail.validator
 const table_detail_validator_1 = require("./validator/table-detail.validator");
 const table_property_validator_1 = require("./validator/table-property.validator");
 const fs = __importStar(require("fs"));
+/**
+ *  This will be the start of the application.
+ *  To generate project you should call this function.
+ *  Ex. import { generateProject } from 'path_of_this_library';
+ *      generateProject(input_data);
+ * */
 function generateProject(projectDetails) {
     try {
         console.log('[main] entered');
@@ -45,6 +51,10 @@ function generateProject(projectDetails) {
     }
 }
 exports.generateProject = generateProject;
+/**
+ *  Sanitise the input provided by the user.
+ *  If the input is in the wrong format then this function will throw error.
+ * */
 function sanitiseInput(projectDetail, errors) {
     try {
         console.log('[sanitiseInput] sanitization starts');
@@ -63,12 +73,20 @@ function sanitiseInput(projectDetail, errors) {
         throw new Error(e['message']);
     }
 }
+/**
+ *  Checks a project already present with the given name.
+ *  If it is, then error will be thrown.
+ * */
 function checkProjectNameAlreadyPresent(dbName, errors) {
     if (!dbName)
         errors.push('database name is empty - please provide valid database name');
     if (fs.existsSync(`./generated-projects/${project_detail_validator_1.changeToRouteFormat(dbName)}`))
         errors.push('given project/database name already present - please provide another name or delete the existing one');
 }
+/**
+ *  Conventionalizes the input to proper format.
+ *  The library uses this method's o/p to generate project.
+ * */
 function conventionalizeInput(projectDetail) {
     try {
         return project_detail_validator_1.conventionalize(projectDetail);
@@ -77,6 +95,11 @@ function conventionalizeInput(projectDetail) {
         throw new Error(e);
     }
 }
+/**
+ *  Returns the method reference based on the given project type.
+ *  If new project type got added (ex. mangoDB) then we just have to add a case
+ *  and return it's method's reference
+ * */
 function chooseProjectType(projectType, errors) {
     if (!projectType)
         errors.push('project type needed - please choose a valid one');
@@ -92,9 +115,9 @@ generateProject({
     projectType: 'nest',
     dbName: "kugesh-database",
     tables: [{
-            tableName: '       kugesh         table 1  ',
+            tableName: 'kugesh-table-1',
             tableProperties: [{
-                    propertyName: "kugesh property 1",
+                    propertyName: "kugesh-property-1",
                     propertyType: "string"
                 },
                 {
@@ -135,7 +158,7 @@ generateProject({
             ],
             primaryKeyName: 'id',
             primaryKeyType: 'string',
-            servicesRequired: { create: true, read: true, update: true, delete: true }
+            servicesRequired: { create: false, read: false, update: true, delete: true }
         }
     ],
 });
