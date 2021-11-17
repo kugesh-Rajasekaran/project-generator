@@ -1,7 +1,9 @@
+import { generateProject } from './src/main';
 export { generateProject } from './src/main';
-/*main({
+
+generateProject({
   dbName: "kugesh-raj-db",
-  dbType: "string",
+  projectType: 'nest',
   tables: [
     {
      tableName: "kugesh-raj-table",
@@ -21,4 +23,4 @@ export { generateProject } from './src/main';
      }
     }
   ]
-});*/
+});

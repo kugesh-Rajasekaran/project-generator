@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@nestjs/cli": "^8.1.4",
-    "@types/node": "^16.7.10",
-    "auto-project-generator": "^1.0.0"
+    "@types/node": "^16.7.10"
   }
 }

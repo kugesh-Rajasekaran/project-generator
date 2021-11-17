@@ -10,14 +10,20 @@ const nest_module_model_1 = require("../models/nest/nest-module.model");
 const project_detail_validator_1 = require("../validator/project-detail.validator");
 const { execSync } = require("child_process");
 const fs = require("fs");
+/**
+ *  This method will be the core for nest project generation.
+ *  It will take care all the neccessary file creation and code generation.
+ * */
 function initialiseNestProject(projectDetail) {
     try {
         const projectName = projectDetail['dbName'];
         const moduleNames = projectDetail['tables'].map((tableDetail) => tableDetail['tableName']);
         const routeFolder = `${process.cwd()}/generated-projects`;
         console.log("[initialise-project] nest initiation started");
+        /* Executes nest-init shell file which installs neccessary dependency and nest starter project */
         const initResponse = execSync(`sh ../src/shell-files/nest/nest-init.sh ${projectName} ${moduleNames}`, { input: 'npm', encoding: 'utf-8', cwd: routeFolder });
         console.log("[initialise-project] nest modules generate started");
+        /* Generates necessary modules, controllers and service files */
         const modulesResponse = execSync(`sh ../../src/shell-files/nest/nest-modules-generate.sh ${projectName} ${moduleNames.join(' ')}`, { input: 'npm', encoding: 'utf-8', cwd: `${routeFolder}/${project_detail_validator_1.changeToRouteFormat(projectName)}` });
         generateCode(projectDetail);
     }
@@ -26,6 +32,9 @@ function initialiseNestProject(projectDetail) {
     }
 }
 exports.initialiseNestProject = initialiseNestProject;
+/**
+ *  This method will act as controller for generating controllers, service, entity, environment code
+ * */
 function generateCode(projectDetail) {
     try {
         const dir = `${process.cwd()}/generated-projects/${project_detail_validator_1.changeToRouteFormat(projectDetail['dbName'])}`;
@@ -62,6 +71,9 @@ function generateCode(projectDetail) {
     }
 }
 exports.generateCode = generateCode;
+/**
+ *  Acts as controller for creating files
+ * */
 function fileCreation(routeArr) {
     console.log("from fileCreation method");
     try {
@@ -71,6 +83,9 @@ function fileCreation(routeArr) {
         throw new Error(e);
     }
 }
+/**
+ *  Generates code and place it in the necessary files
+ * */
 function generateCodeForFiles(dir, args, fnToGenerateCode) {
     console.log("[generateCodeFiles] with data -> " + JSON.stringify(args));
     try {
@@ -88,6 +103,9 @@ function generateCodeForFiles(dir, args, fnToGenerateCode) {
         throw new Error(e);
     }
 }
+/**
+ *  Generates module file code and place's it
+ * */
 function generateCodeForModule(route) {
     console.log('[generateCodeForModule] with routeName -> ' + route);
     try {
@@ -102,6 +120,9 @@ function generateCodeForModule(route) {
     catch (e) {
     }
 }
+/**
+ *  Creates directory based on the given route
+ * */
 function makeDirectory(dir) {
     try {
         fs.mkdirSync(dir);

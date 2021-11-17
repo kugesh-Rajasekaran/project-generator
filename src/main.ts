@@ -92,7 +92,7 @@ function chooseProjectType(projectType: string, errors: string[]){
 }
 
 /* example data to generate a nest project */
-generateProject({
+/*generateProject({
   projectType: 'nest',
   dbName: "kugesh-database",
   tables: [{
@@ -145,4 +145,4 @@ generateProject({
     }
   ],
 })
-
+*/

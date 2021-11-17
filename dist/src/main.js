@@ -111,55 +111,58 @@ function chooseProjectType(projectType, errors) {
     }
 }
 /* example data to generate a nest project */
-generateProject({
-    projectType: 'nest',
-    dbName: "kugesh-database",
-    tables: [{
-            tableName: 'kugesh-table-1',
-            tableProperties: [{
-                    propertyName: "kugesh-property-1",
-                    propertyType: "string"
-                },
-                {
-                    propertyName: "kugesh property 2",
-                    propertyType: "string"
-                },
-                {
-                    propertyName: "kugesh-property-3",
-                    propertyType: "string"
-                },
-                {
-                    propertyName: "kugesh-property-4",
-                    propertyType: "string"
-                }
-            ],
-            primaryKeyName: 'id',
-            primaryKeyType: 'string',
-            servicesRequired: { create: true, read: true, update: true, delete: true }
+/*generateProject({
+  projectType: 'nest',
+  dbName: "kugesh-database",
+  tables: [{
+    tableName: 'kugesh-table-1',
+    tableProperties: [{
+      propertyName: "kugesh-property-1",
+      propertyType: "string"
+    },
+      {
+        propertyName: "kugesh property 2",
+        propertyType: "string"
+      },
+      {
+        propertyName: "kugesh-property-3",
+        propertyType: "string"
+      },
+      {
+        propertyName: "kugesh-property-4",
+        propertyType: "string"
+      }
+
+    ],
+    primaryKeyName: 'id',
+    primaryKeyType: 'string',
+    servicesRequired: {create: true, read: true, update: true, delete: true}
+  },
+    {
+      tableName: 'kugesh-table2',
+      tableProperties: [{
+        propertyName: "kugesh-property-1",
+        propertyType: "string"
+      },
+        {
+          propertyName: "kugesh-property-2",
+          propertyType: "string"
         },
         {
-            tableName: 'kugesh-table2',
-            tableProperties: [{
-                    propertyName: "kugesh-property-1",
-                    propertyType: "string"
-                },
-                {
-                    propertyName: "kugesh-property-2",
-                    propertyType: "string"
-                },
-                {
-                    propertyName: "kugesh-property-3",
-                    propertyType: "string"
-                },
-                {
-                    propertyName: "kugesh-property-4",
-                    propertyType: "string"
-                }
-            ],
-            primaryKeyName: 'id',
-            primaryKeyType: 'string',
-            servicesRequired: { create: false, read: false, update: true, delete: true }
+          propertyName: "kugesh-property-3",
+          propertyType: "string"
+        },
+        {
+          propertyName: "kugesh-property-4",
+          propertyType: "string"
         }
-    ],
-});
+
+      ],
+      primaryKeyName: 'id',
+      primaryKeyType: 'string',
+      servicesRequired: {create: false, read: false, update: true, delete: true}
+    }
+  ],
+})
+*/
 //# sourceMappingURL=main.js.map
